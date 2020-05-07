@@ -2,11 +2,12 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import GobalStyle from './styles/global';
-import Signin from './pages/Signin';
+import Signin from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 const App: React.FC = () => (
   <>
-    <Signin />
+    <SignUp />
     <GobalStyle />
   </>
 );
