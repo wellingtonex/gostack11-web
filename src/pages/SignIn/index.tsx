@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { Container, Content, Background } from './style';
 import logoImg from '../../assets/logo.svg';
 
-import { AuthContext } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import getValidationsErros from '../../utils/getValidationsErros';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -20,9 +20,7 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const { user, signIn } = useContext(AuthContext);
-
-  console.log(user);
+  const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
