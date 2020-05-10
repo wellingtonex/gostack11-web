@@ -3,6 +3,7 @@ import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import { Container, Content, Background } from './style';
 import logoImg from '../../assets/logo.svg';
@@ -51,10 +52,10 @@ const SignUp: React.FC = () => {
 
           <Button type="submit">Cadastar</Button>
         </Form>
-        <a href="">
+        <Link to="/">
           <FiArrowLeft />
           Voltar para logon
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>

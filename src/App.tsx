@@ -1,17 +1,18 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
+import Routes from './routes';
+
 import GobalStyle from './styles/global';
-import Signin from './pages/SignIn';
 import AppProvider from './hooks';
 
 const App: React.FC = () => (
-  <>
+  <BrowserRouter>
     <AppProvider>
-      <Signin />
+      <Routes />
     </AppProvider>
     <GobalStyle />
-  </>
+  </BrowserRouter>
 );
 
 export default App;

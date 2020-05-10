@@ -3,6 +3,7 @@ import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 import { Container, Content, Background } from './style';
 import logoImg from '../../assets/logo.svg';
@@ -42,12 +43,13 @@ const SignIn: React.FC = () => {
           email: data.email,
           password: data.password,
         });
+        return;
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const validationErros = getValidationsErros(error);
           formRef.current?.setErrors(validationErros);
-        } else {
         }
+
         addToast({
           type: 'error',
           title: 'Erro na autenticação',
@@ -76,10 +78,10 @@ const SignIn: React.FC = () => {
           <Button type="submit">Entrar</Button>
           <a href="/forgot">Esqueci minha senha</a>
         </Form>
-        <a href="">
+        <Link to="/signup">
           <FiLogIn />
           Criar conta
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>
