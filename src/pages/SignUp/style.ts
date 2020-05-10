@@ -18,10 +18,10 @@ export const Content = styled.div`
   max-width: 700px;
 `;
 
-const appearFromLeft = keyframes`
+const appearFromRight = keyframes`
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(50px);
   }
 
   to {
@@ -36,7 +36,7 @@ export const AnimationContainer = styled.div`
   align-items: center;
   place-content: center;
 
-  animation: ${appearFromLeft} 1s;
+  animation: ${appearFromRight} 1s;
 
   form {
     margin: 80px 0;
