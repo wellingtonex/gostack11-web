@@ -3,17 +3,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import GobalStyle from './styles/global';
 import Signin from './pages/SignIn';
-import ToasCotainer from './components/ToastContainer';
-
-import { AuthProvider } from './hooks/AuthContext';
+import AppProvider from './hooks';
 
 const App: React.FC = () => (
   <>
-    <AuthProvider>
+    <AppProvider>
       <Signin />
-    </AuthProvider>
-
-    <ToasCotainer />
+    </AppProvider>
     <GobalStyle />
   </>
 );
