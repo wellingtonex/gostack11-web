@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiPower, FiClock } from 'react-icons/fi';
 
 import {
@@ -9,15 +9,16 @@ import {
   Content,
   Schedule,
   NextAppointments,
+  Section,
+  Appointment,
   Calendar,
 } from './styles';
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/AuthContext';
 
 const Dashboard: React.FC = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const { signOut, user } = useAuth();
-
-  console.log(user);
 
   return (
     <Container>
@@ -59,6 +60,52 @@ const Dashboard: React.FC = () => {
               </span>
             </div>
           </NextAppointments>
+          <Section>
+            <strong>Manhã</strong>
+
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+              <div>
+                <img
+                  src="https://avatars0.githubusercontent.com/u/7592982?s=460&u=df533879286ab8754ff4bec7eeb1027ec8ff812c&v=4"
+                  alt="Wellington Batista"
+                />
+                <strong>Wellington Siqueira</strong>
+              </div>
+            </Appointment>
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+              <div>
+                <img
+                  src="https://avatars0.githubusercontent.com/u/7592982?s=460&u=df533879286ab8754ff4bec7eeb1027ec8ff812c&v=4"
+                  alt="Wellington Batista"
+                />
+                <strong>Wellington Siqueira</strong>
+              </div>
+            </Appointment>
+          </Section>
+          <Section>
+            <strong>Tarde</strong>
+            <Appointment>
+              <span>
+                <FiClock />
+                08:00
+              </span>
+              <div>
+                <img
+                  src="https://avatars0.githubusercontent.com/u/7592982?s=460&u=df533879286ab8754ff4bec7eeb1027ec8ff812c&v=4"
+                  alt="Wellington Batista"
+                />
+                <strong>Wellington Siqueira</strong>
+              </div>
+            </Appointment>
+          </Section>
         </Schedule>
         <Calendar />
       </Content>
