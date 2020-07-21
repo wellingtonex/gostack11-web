@@ -1,10 +1,11 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { isToday, format, parseISO, isAfter } from 'date-fns';
-import ptBr from 'date-fns/locale/pt-BR';
+import ptBr, { isToday, format, parseISO, isAfter } from 'date-fns';
+
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import { FiPower, FiClock } from 'react-icons/fi';
 
+import { Link } from 'react-router-dom';
 import {
   Container,
   Header,
@@ -20,7 +21,6 @@ import {
 import logoImg from '../../assets/logo.svg';
 import { useAuth } from '../../hooks/AuthContext';
 import api from '../../services/api';
-import { Link } from 'react-router-dom';
 
 interface MonthAvailability {
   day: number;
@@ -62,7 +62,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<Appointment[]>(`/appointments/me`, {
+      .get<Appointment[]>('/appointments/me', {
         params: {
           year: selectedDate.getFullYear(),
           month: selectedDate.getMonth() + 1,
@@ -70,9 +70,10 @@ const Dashboard: React.FC = () => {
         },
       })
       .then(response => {
-        const appointmenstsFormatted = response.data.map(a => {
-          return { ...a, hourFormatted: format(parseISO(a.date), 'HH:mm') };
-        });
+        const appointmenstsFormatted = response.data.map(a => ({
+          ...a,
+          hourFormatted: format(parseISO(a.date), 'HH:mm'),
+        }));
         setAppointmensts(appointmenstsFormatted);
       });
   }, [selectedDate]);
@@ -91,43 +92,38 @@ const Dashboard: React.FC = () => {
     return dates;
   }, [currentMonth, monthAvailability]);
 
-  const selectedDateAsText = useMemo(() => {
-    return format(selectedDate, "'Dia' dd 'de' MMMM", { locale: ptBr });
-  }, [selectedDate]);
+  const selectedDateAsText = useMemo(
+    () => format(selectedDate, "'Dia' dd 'de' MMMM", { locale: ptBr }),
+    [selectedDate],
+  );
 
-  const selectedWeekDayAsText = useMemo(() => {
-    return format(selectedDate, 'cccc', { locale: ptBr });
-  }, [selectedDate]);
+  const selectedWeekDayAsText = useMemo(
+    () => format(selectedDate, 'cccc', { locale: ptBr }),
+    [selectedDate],
+  );
 
-  const morningAppointments = useMemo(() => {
-    return appointmensts.filter(a => {
-      return parseISO(a.date).getHours() <= 12;
-    });
-  }, [appointmensts]);
+  const morningAppointments = useMemo(
+    () => appointmensts.filter(a => parseISO(a.date).getHours() <= 12),
+    [appointmensts],
+  );
 
-  const afternoonAppointments = useMemo(() => {
-    return appointmensts.filter(a => {
-      return parseISO(a.date).getHours() > 12;
-    });
-  }, [appointmensts]);
+  const afternoonAppointments = useMemo(
+    () => appointmensts.filter(a => parseISO(a.date).getHours() > 12),
+    [appointmensts],
+  );
 
-  const nextAppointment = useMemo(() => {
-    return appointmensts.find(a => isAfter(parseISO(a.date), new Date()));
-  }, [appointmensts]);
+  const nextAppointment = useMemo(
+    () => appointmensts.find(a => isAfter(parseISO(a.date), new Date())),
+    [appointmensts],
+  );
 
   const handleMonthChange = useCallback((month: Date) => {
     setCurrentMonth(month);
-    console.log(month);
   }, []);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    console.log(day);
-    console.log(modifiers);
     if (modifiers.available && !modifiers.disabled) {
-      console.log('dia disponivel');
       setSelectedDate(day);
-    } else {
-      console.log('dia não disponivel');
     }
   }, []);
 
